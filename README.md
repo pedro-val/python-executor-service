@@ -69,41 +69,6 @@ The script must contain a `main()` function that returns a JSON-serializable obj
 
 Returns the status of the service.
 
-## Deployment
-
-### Google Cloud Run
-
-1. Build and push the Docker image to Google Container Registry:
-
-```bash
-# Set your Google Cloud project ID
-export PROJECT_ID=your-project-id
-
-# Build and tag the image
-docker build -t gcr.io/$PROJECT_ID/python-executor-service .
-
-# Push the image to Google Container Registry
-docker push gcr.io/$PROJECT_ID/python-executor-service
-
-# Deploy to Cloud Run
-gcloud run deploy python-executor-service \
-  --image gcr.io/$PROJECT_ID/python-executor-service \
-  --platform managed \
-  --region us-central1 \
-  --allow-unauthenticated
-```
-
-2. Once deployed, you can test the service with:
-
-```bash
-# Replace CLOUD_RUN_URL with your deployed service URL
-curl -X POST https://CLOUD_RUN_URL/execute \
-  -H "Content-Type: application/json" \
-  -d '{
-    "script": "def main():\n    return {\"message\": \"Hello from Cloud Run!\"}"
-  }'
-```
-
 ## Security Considerations
 
 - The service uses nsjail to create a secure sandbox environment
@@ -147,23 +112,3 @@ curl -X POST http://localhost:8080/execute \
     "script": "import pandas as pd\n\ndef main():\n    data = [[1, 2], [3, 4]]\n    df = pd.DataFrame(data, columns=[\"A\", \"B\"])\n    print(\"DataFrame created:\")\n    print(df)\n    return {\"data\": df.to_dict()}"
   }'
 ```
-
-## Google Cloud CLI Instructions
-
-1. Fazer login no Google Cloud
-
-```bash
-gcloud auth login
-```
-
-2. Configurar o projeto
-
-```bash
-gcloud config set project python-executor-service
-```
-
-3. Habilitar as APIs necessárias
-
-```bash
-gcloud services enable run.googleapis.com containerregistry.googleapis.com
-``` 
