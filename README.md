@@ -95,7 +95,7 @@ curl -X POST https://python-executor-service-914356840847.us-central1.run.app/ex
   }'
 ```
 
-### Or
+### Or (for Windows users)
 ```bash
 irm -Method Post -Uri "https://python-executor-service-914356840847.us-central1.run.app/execute" -ContentType "application/json" -Body "{`"script`": `"def main():\n    return {'message': 'Hello, World!'}`"}"
 ```
