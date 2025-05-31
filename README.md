@@ -88,11 +88,16 @@ Returns the status of the service.
 
 ### Simple Example
 ```bash
-curl -X POST http://localhost:8080/execute \
+curl -X POST https://python-executor-service-914356840847.us-central1.run.app/execute \
   -H "Content-Type: application/json" \
   -d '{
     "script": "def main():\n    return {\"message\": \"Hello, World!\"}"
   }'
+```
+
+### Or
+```bash
+irm -Method Post -Uri "https://python-executor-service-914356840847.us-central1.run.app/execute" -ContentType "application/json" -Body "{`"script`": `"def main():\n    return {'message': 'Hello, World!'}`"}"
 ```
 
 ### Using NumPy
